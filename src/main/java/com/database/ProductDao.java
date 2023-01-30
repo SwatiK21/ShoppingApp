@@ -7,6 +7,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
 import com.product.Product;
 
 public class ProductDao {
@@ -18,7 +27,25 @@ public class ProductDao {
 		}
 	}
 	
-	public static List<Product> listProducts() {
+	public List<Product> listProducts() {
+		SessionFactory sessionFactory;
+        try {
+            sessionFactory = new Configuration().configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Failed to create sessionFactory object." + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> criteria = builder.createQuery(Product.class);
+        criteria.from(Product.class);
+        List<Product> products = session.createQuery(criteria).getResultList();
+        session.close();
+        return products;
+	}
+	
+	
+	public static List<Product> listProducts2() {
 		init();
 		List<Product> productsList = new ArrayList<>();
 		try {

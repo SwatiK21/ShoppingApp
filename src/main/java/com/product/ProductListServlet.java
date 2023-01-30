@@ -51,8 +51,8 @@ public class ProductListServlet extends HttpServlet {
 //		productList.add(p2);
 //		productList.add(p3);
 //		productList.add(p4);
-		
-		List<Product> productList = ProductDao.listProducts();
+		ProductDao productDao = new ProductDao();
+		List<Product> productList = productDao.listProducts();
 		String destination = "products.jsp";
 		 
 		request.setAttribute("productList", productList);

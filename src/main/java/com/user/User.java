@@ -1,11 +1,19 @@
 package com.user;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
 	private int id;
 	private String name;
 	private String email;
 	private String password;
 	private String phoneNumber;
+	
+	public User() {
+
+	}
 	
 	public User(int id, String name, String email, String password, String phoneNumber) {
 		super();
@@ -15,6 +23,9 @@ public class User {
 		this.password = password;
 		this.phoneNumber = phoneNumber;
 	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -45,6 +56,4 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-	
 }

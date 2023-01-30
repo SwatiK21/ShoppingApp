@@ -1,5 +1,9 @@
 package com.product;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
 	private Integer id;
@@ -9,6 +13,10 @@ public class Product {
 	private String image;
 	private Double price;
 	
+	public Product() {
+		
+	}
+
 	public Product(Integer id, String type, String name, String description, String image, Double price) {
 		super();
 		this.id = id;
@@ -19,6 +27,8 @@ public class Product {
 		this.price = price;
 	}
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
 		return id;
 	}
@@ -55,6 +65,4 @@ public class Product {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-	
 }
